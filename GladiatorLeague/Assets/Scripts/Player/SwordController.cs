@@ -8,8 +8,6 @@ public class SwordController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform character;
     [SerializeField] private Camera camera;
-    [Header("Settings")]
-    [SerializeField] private float weaponHeight;
 
     private SwordMotor swordMotor;
     private Plane plane;
@@ -17,7 +15,7 @@ public class SwordController : MonoBehaviour
     private void Start()
     {
         swordMotor = GetComponentInParent<SwordMotor>();
-        plane = new Plane(Vector3.up, -weaponHeight);
+        plane = new Plane(Vector3.down, swordMotor.weaponHeight);
     }
 	
 	private void Update()
@@ -29,7 +27,7 @@ public class SwordController : MonoBehaviour
         if (plane.Raycast(ray, out dist))
         {
             Vector3 point = ray.GetPoint(dist);
-            swordMotor.swordTargetPosition = point;
+            swordMotor.mousePos = point;
         }
     }
 }
